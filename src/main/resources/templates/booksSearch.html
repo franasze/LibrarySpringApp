@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Library</title>
+    <link rel="stylesheet" href="/common.css">
+</head>
+<body>
+<div th:replace="~{fragments.html :: logo}"></div>
+<div th:replace="~{fragments.html :: menu}"></div>
+<div id="content">
+    <h1>Wyszukiwarka książek</h1>
+
+    <form action="/search" method="GET">
+        <label>Wyszukaj książkę po tytule lub autorze:</label><br>
+        <input type="text" placeholder="Szukane" name="pattern"><br><br>
+        <input type="submit" class="button" value="Szukaj">
+    </form>
+    <div th:replace="~{/fragments.html :: books}"></div>
+</div>
+</body>
+</html>

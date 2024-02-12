@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Library</title>
+    <link rel="stylesheet" href="/common.css">
+</head>
+<body>
+
+<div id="menu" th:fragment="menu">
+    <a href="/main" class="button">Strona Główna</a>
+    <a href="/borrowedBooksList" class="button" th:if="${isLogged}">Pokaż wypożyczone książki</a>
+    <a href="/afterDeadlineList" class="button" th:if="${isLogged}">Pokaż nieoddane książki po terminie </a>
+    <a href="/booksSearch" class="button" th:if="${isLogged}">Znajdź książkę</a>
+    <a href="/addBook" class="button" th:if="${isLogged}">Dodaj książkę</a>
+    <a href="/login" class="button" th:if="${!isLogged}">Login</a>
+    <a href="/logout" class="button" th:if="${isLogged}">Logout</a>
+</div>
+
+<div id="myLogo" th:fragment="logo">
+    <img src="/logoLibrary.png">
+</div>
+
+<div class="book" th:fragment="books">
+    <div th:each="book : ${books}">
+        <div th:text="${book.title}" class="title"></div>
+        <div th:text="${book.author}" class="author"/>
+        <div th:text="${'ISBN: ' + book.isbn}" class="isbn"/>
+        <div th:text="${'Ilość: ' + book.quantity}" class="quantity"/>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+.borrowedBookPosition {
+    width: 100%;
+}
+
+.labels {
+    margin-bottom: 20px;
+    /*width: 35%;*/
+    /*display: inline-block;*/
+    /*text-align: center;*/
+    /*font-size: 18px;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+}
+.borrowedBookPosition .title {
+    width: 35%;
+    display: inline-block;
+    text-align: center;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+}
+.borrowedBookPosition .author {
+    width: 35%;
+    display: inline-block;
+    text-align: center;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+.borrowedBookPosition .quantity {
+    width: 7%;
+    display: inline-block;
+    text-align: center;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+}
+

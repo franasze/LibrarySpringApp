@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Library</title>
+    <link rel="stylesheet" href="/common.css">
+    <link rel="stylesheet" href="/borrow.css">
+</head>
+<body>
+
+<div th:replace="~{fragments.html :: logo}"></div>
+<div th:replace="~{fragments.html :: menu}"></div>
+
+<div id="content">
+    <form method="post">
+            <label>Imię:</label><br>
+            <input type="text" placeholder="Imie" th:field="*{order.firstName}" required><br>
+            <label>Nazwisko:</label><br>
+            <input type="text" placeholder="Nazwisko" th:field="*{order.lastName}" required><br>
+
+        <input  class="button" type="submit" style="margin-top: 20px;" value="Wypożycz">
+    </form>
+    <div class="borrowedBookPosition labels">
+        <div class="title">Tytuł</div>
+        <div class="author">Autor</div>
+        <div class="quantity">Ilość</div>
+    </div>
+    <div class="borrowedBookPosition" th:each="orderPosition : ${my}">
+        <div th:text="${orderPosition.book.title}" class="title"/>
+        <div th:text="${orderPosition.book.author}" class="author"/>
+        <div th:text="${orderPosition.quantity}" class="quantity"/>
+    </div>
+</div>
+</body>
+</html>
