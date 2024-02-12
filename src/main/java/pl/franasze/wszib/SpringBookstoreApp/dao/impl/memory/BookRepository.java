@@ -14,21 +14,21 @@ public class BookRepository implements IBookDAO {
 
     public BookRepository() {
         this.books.add(
-                new Book(1, "Java. Przewodnik doświadczonego programisty. Wydanie III",
-                        "Cay S. Horstmann", "978-83-289-0140-7",
-                         10));
+                new Book(1, "Lalka",
+                        "Boleslaw Prus", "978-83-289-0140-7",
+                        10));
         this.books.add(
-                new Book(2, "Java w pigułce. Wydanie VIII",
-                        "Benjamin Evans, Jason Clark, David Flanagan",
+                new Book(2, "Pan Tadeusz",
+                        "Adam Mickiewicz",
                         "978-83-289-0161-2",
                         10));
         this.books.add(
-                new Book(3, "Java. Kompendium programisty. Wydanie XII",
-                        "Herbert Schildt", "978-83-832-2156-4",
+                new Book(3, "Miecz przeznaczenia",
+                        "Andrzej Sapkowski", "978-83-832-2156-4",
                         10));
         this.books.add(
-                new Book(4, "Java. Rusz głową! Wydanie III",
-                        "Kathy Sierra, Bert Bates, Trisha Gee", "978-83-283-9984-6",
+                new Book(4, "Kordian",
+                        "Juliusz Slowacki", "978-83-283-9984-6",
                         10));
     }
 

@@ -16,7 +16,6 @@ public class UserRepository implements IUserDAO {
 
     public UserRepository() {
         this.users.add(new User(1, "admin", DigestUtils.md5Hex("admin123")));
-        this.users.add(new User(2, "janusz", DigestUtils.md5Hex("janusz123")));
     }
 
     @Override
