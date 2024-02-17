@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.franasze.wszib.SpringBookstoreApp.model.Book;
 import pl.franasze.wszib.SpringBookstoreApp.services.IBookService;
 import pl.franasze.wszib.SpringBookstoreApp.session.SessionObject;
@@ -30,19 +31,33 @@ public class CommonController {
 
 
     @RequestMapping(path = "/booksSearch", method = RequestMethod.GET)
-    public String contact(Model model) {
+    public String booksSearch(Model model) {
+        model.addAttribute("books", this.bookService.getAll());
+        model.addAttribute("pattern", "");
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         return "booksSearch";
     }
 
+    @RequestMapping(path = "/booksSearch", method = RequestMethod.POST)
+    public String booksSearch(@RequestParam("pattern") String pattern, Model model){
+        model.addAttribute("isLogged",
+                this.sessionObject.isLogged());
+        model.addAttribute("books", bookService.getByPattern(pattern));
+        return "booksSearch";
+    }
+
+
+
     @RequestMapping(path = "/borrowedBooksList", method = RequestMethod.GET)
     public String listBooks(Model model) {
+        model.addAttribute("borrowedBooks", this.bookService.getAll());
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         return "borrowedBooksList";
     }
 
     @RequestMapping(path = "/afterDeadlineList", method = RequestMethod.GET)
     public String listBooksAfterDeadline(Model model) {
+        model.addAttribute("books", this.bookService.getAll());
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         return "afterDeadlineList";
     }

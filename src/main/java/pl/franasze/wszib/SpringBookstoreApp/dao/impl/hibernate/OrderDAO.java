@@ -10,13 +10,14 @@ import pl.franasze.wszib.SpringBookstoreApp.dao.IOrderDAO;
 import pl.franasze.wszib.SpringBookstoreApp.model.BorrowBook;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public class OrderDAO implements IOrderDAO {
 
     private final String GET_BY_ID = "FROM pl.franasze.wszib.SpringBookstoreApp.model.BorrowBook WHERE id = :id";
-
+    private final String GET_ALL ="FROM pl.franasze.wszib.SpringBookstoreApp.model.BorrowBook";
     @Autowired
     SessionFactory sessionFactory;
 
@@ -45,7 +46,18 @@ public class OrderDAO implements IOrderDAO {
         } catch (NoResultException e) {
             return Optional.empty();
         } finally {
-            //session.close();
+            session.close();
         }
     }
+
+    @Override
+    public List<BorrowBook> getAll() {
+        Session session = this.sessionFactory.openSession();
+        Query<BorrowBook> query = session.createQuery(GET_ALL,BorrowBook.class);
+        List<BorrowBook> result = query.getResultList();
+        session.close();
+        return result;
+    }
+
+
 }

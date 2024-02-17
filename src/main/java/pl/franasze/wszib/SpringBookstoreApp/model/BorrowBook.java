@@ -21,6 +21,7 @@ public class BorrowBook {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<BorrowedBookPosition> borrowedBookPositions = new HashSet<>();
     private LocalDateTime date;
+    private LocalDateTime returned;
     private String firstName;
     private String lastName;
 

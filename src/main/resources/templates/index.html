@@ -17,7 +17,9 @@
         <div th:text="${'ISBN: ' + book.isbn}" class="isbn"/>
         <div th:text="${'Ilość: ' + book.quantity}" class="quantity"/>
         <a th:if="${isLogged}" th:href="@{/book/add/{id}(id=${book.id})}">Wypożycz</a>
+
     </div>
+
 </div>
 </body>
 </html>

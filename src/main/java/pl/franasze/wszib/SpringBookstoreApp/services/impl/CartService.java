@@ -14,8 +14,10 @@ import pl.franasze.wszib.SpringBookstoreApp.session.SessionObject;
 
 import java.time.LocalDateTime;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class CartService implements ICartService {
@@ -45,10 +47,10 @@ public class CartService implements ICartService {
     public boolean order(String firstName, String lastName) {
         Set<BorrowedBookPosition> cart = this.sessionObject.getCart();
         Iterator<BorrowedBookPosition> cartIterator = cart.iterator();
-        while(cartIterator.hasNext()) {
+        while (cartIterator.hasNext()) {
             BorrowedBookPosition position = cartIterator.next();
             Optional<Book> bookFromDb = this.bookDAO.getById(position.getBook().getId());
-            if(bookFromDb.isEmpty() || bookFromDb.get().getQuantity() < position.getQuantity()) {
+            if (bookFromDb.isEmpty() || bookFromDb.get().getQuantity() < position.getQuantity()) {
                 cartIterator.remove();
                 return false;
             }
@@ -57,19 +59,34 @@ public class CartService implements ICartService {
         BorrowBook order = new BorrowBook();
         order.setUser(this.sessionObject.getLoggedUser());
         order.setDate(LocalDateTime.now());
-//        order.setStatus(BorrowBook.Status.NEW);
-        order.setBorrowedBookPositions(cart);
         order.setFirstName(firstName);
+//        System.out.println(order.getFirstName());
         order.setLastName(lastName);
+        order.setBorrowedBookPositions(cart);
+
 
         cart.forEach(orderPosition -> {
             Book book = this.bookDAO.getById(orderPosition.getBook().getId()).get();
             book.setQuantity(book.getQuantity() - orderPosition.getQuantity());
             orderPosition.setBook(book);
+//            System.out.println(book);
+//            System.out.println(book.getQuantity());
         });
 
         this.orderDAO.persist(order);
         this.sessionObject.getCart().clear();
         return true;
+    }
+
+    @Override
+    public List<BorrowBook> getAll() {
+        return this.orderDAO.getAll();
+    }
+
+    @Override
+    public List<BorrowBook> actualBorrowers() {
+        return getAll().stream()
+                .filter(borrowBook -> borrowBook.getReturned() == null)
+                .collect(Collectors.toList());
     }
 }

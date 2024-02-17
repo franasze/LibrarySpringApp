@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.franasze.wszib.SpringBookstoreApp.model.Book;
 import pl.franasze.wszib.SpringBookstoreApp.model.BorrowBook;
 import pl.franasze.wszib.SpringBookstoreApp.services.ICartService;
 import pl.franasze.wszib.SpringBookstoreApp.session.SessionObject;
@@ -22,24 +21,24 @@ public class CartController {
     @RequestMapping(path = "/book/add/{bookId}", method = RequestMethod.GET)
     public String addBook(@PathVariable final int bookId) {
         this.cartService.addBookToCart(bookId);
-        return "redirect:/my";
+        return "redirect:/borrowProcess";
     }
 
-    @RequestMapping(path = "/my", method = RequestMethod.GET)
+    @RequestMapping(path = "/borrowProcess", method = RequestMethod.GET)
     public String cart(Model model) {
         model.addAttribute("order", new BorrowBook());
-        model.addAttribute("my", this.sessionObject.getCart());
+        model.addAttribute("borrowProcess", this.sessionObject.getCart());
         model.addAttribute("isLogged", this.sessionObject.isLogged());
-        return "my";
+        return "order";
     }
 
 
-    @RequestMapping(path ="/my", method = RequestMethod.POST)
+    @RequestMapping(path ="/borrowProcess", method = RequestMethod.POST)
     public String submitForm(@ModelAttribute BorrowBook order) {
         if (this.cartService.order(order.getFirstName(), order.getLastName())){
             return "redirect:/main";
         }
-        return "redirect:/my";
+        return "redirect:/borrowProcess";
     }
 
 

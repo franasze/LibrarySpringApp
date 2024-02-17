@@ -70,7 +70,7 @@ public class UserDAO implements IUserDAO {
         } catch (Exception e) {
             session.getTransaction().rollback();
         } finally {
-            session.close();
+//            session.close();
         }
     }
 }
